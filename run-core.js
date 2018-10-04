@@ -1,6 +1,9 @@
+// import {isRoomContact} from './src/interface/contact.js'
+
 'use strict'
 require('babel-register')
 const Wechat = require('./src/wechat.js')
+const ContactFunc = require('./src/interface/contact.js')
 const qrcode = require('qrcode-terminal')
 const fs = require('fs')
 const request = require('request')
@@ -111,16 +114,25 @@ bot.on('message', msg => {
        * 文本消息
        */
       console.log(msg.Content)
-      const autoReturnMsg = '-----以下消息为自动回复-----\n' + 
+      // console.log(msg)
+      
+      const contactUser = bot.contacts[msg.FromUserName]
+      const isRC = ContactFunc.isRoomContact(contactUser)
+      // console.log(contactUser)
+      console.log("isRoomContact: ", isRC)
+      
+      if (isRC === false){
+        const autoReturnMsg = '-----以下消息为自动回复-----\n' + 
                             ' 对不起，由于猛男正在维修服\n' +
                             ' 务器或是正在学习，亦有可能\n' +
                             ' 在玩太吾绘卷，猛男会稍后进\n' +
                             ' 行回复请谅解有急事请连续轰\n' +
                             ' 炸或转qq575875831,谢谢!\n';
-      bot.sendMsg(autoReturnMsg, msg.FromUserName)
-      .catch(err => {
-        bot.emit('error', err)
-      })
+        bot.sendMsg(autoReturnMsg, msg.FromUserName)
+        .catch(err => {
+          bot.emit('error', err)
+        })
+      }
       break
     case bot.CONF.MSGTYPE_IMAGE:
       /**
