@@ -59,6 +59,12 @@ const messageProto = {
   getDisplayTime: function () {
     var time = new Date(1e3 * this.CreateTime)
     return time.getHours() + ':' + formatNum(time.getMinutes(), 2)
+  },
+  
+  //session expire time is msg time + 10 minutes
+  sessionExpireTime: function () {
+    var time = new Date(1e3 * (this.CreateTime + 600))
+    return time.getHours() + ':' + formatNum(time.getMinutes(), 2)
   }
 }
 
