@@ -91,6 +91,10 @@ bot.on('login', () => {
 
   
 })
+
+
+let connectSession = new Map();
+
 /**
  * 如何处理会话消息
  */
@@ -98,13 +102,17 @@ bot.on('message', msg => {
   /**
    * 获取消息时间
    */
-  console.log(`----------${msg.getDisplayTime()}----------`)
+  const msgTime = msg.getDisplayTime()
+  const expireTime = msg.sessionExpireTime()
+  console.log(`----------${msgTime}----------`)
+
   /**
    * 获取消息发送者的显示名
    */
 
   const fromUser = bot.contacts[msg.FromUserName].getDisplayName()
-  console.log(fromUser)
+  console.log("Chatter: ",fromUser)
+
   /**
    * 判断消息类型
    */
@@ -113,25 +121,62 @@ bot.on('message', msg => {
       /**
        * 文本消息
        */
-      console.log(msg.Content)
+      console.log("msg: ",msg.Content)
       // console.log(msg)
       
-      const contactUser = bot.contacts[msg.FromUserName]
-      const isRC = ContactFunc.isRoomContact(contactUser)
-      // console.log(contactUser)
-      console.log("isRoomContact: ", isRC)
-      
-      if (isRC === false){
-        const autoReturnMsg = '-----以下消息为自动回复-----\n' + 
-                            ' 对不起，由于猛男正在维修服\n' +
-                            ' 务器或是正在学习，亦有可能\n' +
-                            ' 在玩太吾绘卷，猛男会稍后进\n' +
-                            ' 行回复请谅解有急事请连续轰\n' +
-                            ' 炸或转qq575875831,谢谢!\n';
-        bot.sendMsg(autoReturnMsg, msg.FromUserName)
-        .catch(err => {
-          bot.emit('error', err)
-        })
+      //check whether session is valid
+      if(connectSession[fromUser] == undefined){
+        console.log(connectSession[fromUser])
+        //create seesion expire time
+        connectSession[fromUser] = expireTime
+
+        //send auto reply to user
+        const contactUser = bot.contacts[msg.FromUserName]
+        const isRC = ContactFunc.isRoomContact(contactUser)
+        // console.log(contactUser)
+        console.log("isRoomContact: ", isRC)
+        
+        if (isRC === false){
+          const autoReturnMsg = '-----以下消息为自动回复-----\n' + 
+                              ' 对不起，由于猛男正在维修服\n' +
+                              ' 务器或是正在学习，亦有可能\n' +
+                              ' 在玩太吾绘卷，猛男会稍后进\n' +
+                              ' 行回复请谅解有急事请连续轰\n' +
+                              ' 炸或转qq575875831,谢谢!\n';
+          bot.sendMsg(autoReturnMsg, msg.FromUserName)
+          .catch(err => {
+            bot.emit('error', err)
+          })
+
+          // console.log("Reply")
+        }
+      }else{
+        console.log(connectSession[fromUser])
+        //expire and resend auto msg
+        if(msgTime > connectSession[fromUser]){
+          connectSession[fromUser] = expireTime
+
+          //send auto reply to user
+          const contactUser = bot.contacts[msg.FromUserName]
+          const isRC = ContactFunc.isRoomContact(contactUser)
+          // console.log(contactUser)
+          console.log("isRoomContact: ", isRC)
+          
+          if (isRC === false){
+            const autoReturnMsg = '-----以下消息为自动回复-----\n' + 
+                                ' 对不起，由于猛男正在维修服\n' +
+                                ' 务器或是正在学习，亦有可能\n' +
+                                ' 在玩太吾绘卷，猛男会稍后进\n' +
+                                ' 行回复请谅解有急事请连续轰\n' +
+                                ' 炸或转qq575875831,谢谢!\n';
+            bot.sendMsg(autoReturnMsg, msg.FromUserName)
+            .catch(err => {
+              bot.emit('error', err)
+            })
+
+            // console.log("Reply")
+          }
+        }
       }
       break
     case bot.CONF.MSGTYPE_IMAGE:
