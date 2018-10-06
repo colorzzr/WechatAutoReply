@@ -137,10 +137,11 @@ bot.on('message', msg => {
         console.log("isRoomContact: ", isRC)
         
         if (isRC === false){
-          const autoReturnMsg = '-----以下消息为自动回复-----\n' + 
-                              ' 对不起，由于猛男正在维修服\n' +
-                              ' 务器或是正在学习，亦有可能\n' +
-                              ' 在玩太吾绘卷，猛男会稍后进\n' +
+          const autoReturnMsg = 
+                              '-----以下消息为自动回复-----\n' + 
+                              ' 对不起，由于程序猴正在他的\n' +
+                              ' 执拗付出代价。近期网页和服\n' +
+                              ' 务器船面升级，猛男会稍后进\n' +
                               ' 行回复请谅解有急事请连续轰\n' +
                               ' 炸或转qq575875831,谢谢!\n';
           bot.sendMsg(autoReturnMsg, msg.FromUserName)
@@ -163,12 +164,13 @@ bot.on('message', msg => {
           console.log("isRoomContact: ", isRC)
           
           if (isRC === false){
-            const autoReturnMsg = '-----以下消息为自动回复-----\n' + 
-                                ' 对不起，由于猛男正在维修服\n' +
-                                ' 务器或是正在学习，亦有可能\n' +
-                                ' 在玩太吾绘卷，猛男会稍后进\n' +
-                                ' 行回复请谅解有急事请连续轰\n' +
-                                ' 炸或转qq575875831,谢谢!\n';
+            const autoReturnMsg = 
+                              '-----以下消息为自动回复-----\n' + 
+                              ' 对不起，由于程序猴正在他的\n' +
+                              ' 执拗付出代价。近期网页和服\n' +
+                              ' 务器船面升级，猛男会稍后进\n' +
+                              ' 行回复请谅解有急事请连续轰\n' +
+                              ' 炸或转qq575875831,谢谢!\n';
             bot.sendMsg(autoReturnMsg, msg.FromUserName)
             .catch(err => {
               bot.emit('error', err)
