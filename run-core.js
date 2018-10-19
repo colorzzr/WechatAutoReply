@@ -139,11 +139,10 @@ bot.on('message', msg => {
         if (isRC === false){
           const autoReturnMsg = 
                               '-----以下消息为自动回复-----\n' + 
-                              ' 对不起，由于程序猴正在他的\n' +
-                              ' 执拗付出代价。近期网页和服\n' +
-                              ' 务器船面升级，猛男会稍后进\n' +
-                              ' 行回复请谅解有急事请连续轰\n' +
-                              ' 炸或转qq575875831,谢谢!\n';
+                              ' 对不起，由于程序员正在尝试\n' +
+                              ' 续命，猛男会稍后进行回复请\n' +
+                              ' 谅解有急事请连续轰炸或\n' +
+                              ' 转qq575875831,谢谢!\n';
           bot.sendMsg(autoReturnMsg, msg.FromUserName)
           .catch(err => {
             bot.emit('error', err)
@@ -166,11 +165,10 @@ bot.on('message', msg => {
           if (isRC === false){
             const autoReturnMsg = 
                               '-----以下消息为自动回复-----\n' + 
-                              ' 对不起，由于程序猴正在他的\n' +
-                              ' 执拗付出代价。近期网页和服\n' +
-                              ' 务器船面升级，猛男会稍后进\n' +
-                              ' 行回复请谅解有急事请连续轰\n' +
-                              ' 炸或转qq575875831,谢谢!\n';
+                              ' 对不起，由于程序员正在尝试\n' +
+                              ' 续命，猛男会稍后进行回复请\n' +
+                              ' 谅解有急事请连续轰炸或\n' +
+                              ' 转qq575875831,谢谢!\n';
             bot.sendMsg(autoReturnMsg, msg.FromUserName)
             .catch(err => {
               bot.emit('error', err)
