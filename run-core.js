@@ -124,6 +124,13 @@ bot.on('message', msg => {
       console.log("msg: ",msg.Content)
       // console.log(msg)
       
+      const autoReturnMsg = 
+                          '-----以下消息为自动回复-----\n' + 
+                          '  while(true){           \n' +
+                          '     智力 --;             \n' +
+                          '     头发 --;             \n' +
+                          '  }                      \n';
+
       //check whether session is valid
       if(connectSession[fromUser] == undefined){
         console.log(connectSession[fromUser])
@@ -137,12 +144,6 @@ bot.on('message', msg => {
         console.log("isRoomContact: ", isRC)
         
         if (isRC === false){
-          const autoReturnMsg = 
-                              '-----以下消息为自动回复-----\n' + 
-                              ' 对不起，由于程序员正在尝试\n' +
-                              ' 续命，猛男会稍后进行回复请\n' +
-                              ' 谅解有急事请连续轰炸或\n' +
-                              ' 转qq575875831,谢谢!\n';
           bot.sendMsg(autoReturnMsg, msg.FromUserName)
           .catch(err => {
             bot.emit('error', err)
@@ -163,12 +164,6 @@ bot.on('message', msg => {
           console.log("isRoomContact: ", isRC)
           
           if (isRC === false){
-            const autoReturnMsg = 
-                              '-----以下消息为自动回复-----\n' + 
-                              ' 对不起，由于程序员正在尝试\n' +
-                              ' 续命，猛男会稍后进行回复请\n' +
-                              ' 谅解有急事请连续轰炸或\n' +
-                              ' 转qq575875831,谢谢!\n';
             bot.sendMsg(autoReturnMsg, msg.FromUserName)
             .catch(err => {
               bot.emit('error', err)
